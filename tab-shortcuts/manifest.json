@@ -1,0 +1,49 @@
+{
+  "manifest_version": 2,
+
+  "name": "Tab Shortcuts - Rearrange Chrome Tabs",
+  "short_name": "Tab Shortcuts",
+  "description": "Add keyboard shortcuts for moving tabs between windows",
+  "version": "0.1.0",
+  "author": "Matthew V. Ball",
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+
+  "commands": {
+    "move-tabs-left": {
+      "description": "Move tabs to the left",
+      "suggested_key": {
+        "default": "Ctrl+Shift+PageUp",
+        "mac": "MacCtrl+Shift+PageUp"
+      }
+    },
+
+    "move-tabs-right": {
+      "description": "Move tabs to the right",
+      "suggested_key": {
+        "default": "Ctrl+Shift+PageDown",
+        "mac": "MacCtrl+Shift+PageDown"
+      }
+    },
+
+    "undock-tabs-to-new-window": {
+      "description": "Undock tabs to a new window",
+      "suggested_key": {
+        "default": "Ctrl+Shift+Up",
+        "mac": "MacCtrl+Shift+Up"
+      }
+    },
+
+    "move-tabs-between-windows": {
+      "description": "Move tabs to next window",
+      "suggested_key": {
+        "default": "Ctrl+Shift+Down",
+        "mac": "MacCtrl+Shift+Down"
+      }
+    }
+  }
+
+}

@@ -1,3 +1,5 @@
+"use strict";
+
 chrome.commands.onCommand.addListener(function(command) {
 
   let numTabsInCurrentWindow;
@@ -29,7 +31,12 @@ chrome.commands.onCommand.addListener(function(command) {
       );
 
       processHighlightedTabs(function (tabs) {
-        chrome.windows.create({ tabId: tabs[0].id }, function (window) {
+        let properties = { tabId: tabs[0].id };
+        if (tabs.length == 1) {
+          // Remove the URL and tab bar when popping out a single tab.
+          properties.type = 'popup';
+        }
+        chrome.windows.create(properties, function (window) {
           tabs.shift();
           if (tabs.length > 0) {
             chrome.tabs.move(tabs.map(tab => tab.id), { windowId: window.id, index: 1 });

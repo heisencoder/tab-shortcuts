@@ -31,6 +31,10 @@ chrome.commands.onCommand.addListener(function(command) {
     case "move-tabs-between-windows":
       moveTabsBetweenWindows();
       break;
+
+    case "toggle-pinned":
+      togglePinned();
+      break;
   }
 
   function undockTabsToNewWindow() {
@@ -78,6 +82,24 @@ chrome.commands.onCommand.addListener(function(command) {
           });
         });
       });
+    });
+  }
+
+  // Toggles the pinned state of the active tab, and makes all the 
+  // other highlighted tabs match this pinned state.
+  function togglePinned() {
+    processHighlightedTabs(function(tabs) {
+      let activeIndex = tabs.findIndex((tab) => { return tab.active; });
+      if (tabs[activeIndex].pinned) {
+        // Need to go backwards to avoid reversing tab order.
+        tabs.slice().reverse().forEach((tab) => {
+          chrome.tabs.update(tab.id, {'pinned': false});
+        })
+      } else {
+        tabs.forEach((tab) => {
+          chrome.tabs.update(tab.id, {'pinned': true});
+        })
+      }
     });
   }
 

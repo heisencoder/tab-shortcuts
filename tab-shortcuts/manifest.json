@@ -14,19 +14,11 @@
 
   "commands": {
     "move-tabs-left": {
-      "description": "Move tabs to the left",
-      "suggested_key": {
-        "default": "Ctrl+Shift+PageUp",
-        "mac": "MacCtrl+Shift+PageUp"
-      }
+      "description": "Move tabs to the left"
     },
 
     "move-tabs-right": {
-      "description": "Move tabs to the right",
-      "suggested_key": {
-        "default": "Ctrl+Shift+PageDown",
-        "mac": "MacCtrl+Shift+PageDown"
-      }
+      "description": "Move tabs to the right"
     },
 
     "undock-tabs-to-new-window": {
@@ -42,6 +34,14 @@
       "suggested_key": {
         "default": "Ctrl+Shift+Down",
         "mac": "MacCtrl+Shift+Down"
+      }
+    },
+
+    "toggle-pinned": {
+      "description": "Toggle the pinned state",
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "MacCtrl+Shift+K"
       }
     }
   }

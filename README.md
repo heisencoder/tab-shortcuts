@@ -13,7 +13,7 @@ This extension supports adding keybindings for the following actions:
     as defined by the order that the windows were created.  This skips over
     other pop-up type windows. If the active tab is itself in a pop-up type
     window then it is moved into a regular tab in the next window.
-*   `toggle-pinned`: Toggles the pinned state of all the selected windows.:w
+*   `toggle-pinned`: Toggles the pinned state of all the selected windows.
 
 You can select multiple tabs by holding down Shift or Ctrl while clicking on tabs.
 

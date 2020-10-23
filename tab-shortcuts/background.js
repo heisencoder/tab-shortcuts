@@ -25,25 +25,7 @@ chrome.commands.onCommand.addListener(function(command) {
       break;
 
     case "undock-tabs-to-new-window":
-      let activeTab;
-      chrome.tabs.query({ currentWindow: true, active: true },
-        function (tabs) { activeTab = tabs[0]; }
-      );
-
-      processHighlightedTabs(function (tabs) {
-        let properties = { tabId: tabs[0].id };
-        if (tabs.length == 1) {
-          // Remove the URL and tab bar when popping out a single tab.
-          properties.type = 'popup';
-        }
-        chrome.windows.create(properties, function (window) {
-          tabs.shift();
-          if (tabs.length > 0) {
-            chrome.tabs.move(tabs.map(tab => tab.id), { windowId: window.id, index: 1 });
-            chrome.tabs.update(activeTab.id, { active: true });
-          }
-        });
-      });
+      undockTabsToNewWindow();
       break;
 
     case "move-tabs-between-windows":
@@ -77,6 +59,28 @@ chrome.commands.onCommand.addListener(function(command) {
         }
       );
       break;
+  }
+
+  function undockTabsToNewWindow() {
+    let activeTab;
+    chrome.tabs.query({ currentWindow: true, active: true },
+      function (tabs) { activeTab = tabs[0]; }
+    );
+
+    processHighlightedTabs(function (tabs) {
+      let properties = { tabId: tabs[0].id };
+      if (tabs.length == 1) {
+        // Remove the URL and tab bar when popping out a single tab.
+        properties.type = 'popup';
+      }
+      chrome.windows.create(properties, function (window) {
+        tabs.shift();
+        if (tabs.length > 0) {
+          chrome.tabs.move(tabs.map(tab => tab.id), { windowId: window.id, index: 1 });
+          chrome.tabs.update(activeTab.id, { active: true });
+        }
+      });
+    });
   }
 
   function processHighlightedTabs(callback) {

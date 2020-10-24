@@ -61,28 +61,38 @@ chrome.commands.onCommand.addListener(function(command) {
 
   function moveTabsBetweenWindows() {
     chrome.windows.getAll({ populate: true }, function (windows) {
-      if (windows.length < 2) return;
-
       chrome.windows.getCurrent(function (currentWindow) {
-        let currentWindowIndex = windows.map(window => window.id).indexOf(currentWindow.id);
-        let nextWindowIndex = currentWindowIndex;
-        let nextWindow = null;
-        do {
-          nextWindowIndex++;
-          if (nextWindowIndex >= windows.length) nextWindowIndex = 0;
-          nextWindow = windows[nextWindowIndex];
-        } while (nextWindow.type != "normal" && nextWindowIndex != currentWindowIndex);
+        let nextWindow = getNextNormalWindow(windows, currentWindow);
+
+        if (nextWindow.id == currentWindow.id) {
+          return;
+        }
 
         processHighlightedTabs(function (tabs) {
           chrome.tabs.query({ currentWindow: true, active: true }, function (activeTabs) {
             let activeTab = activeTabs[0];
-            chrome.tabs.move(tabs.map(tab => tab.id), { windowId: nextWindow.id, index: nextWindow.tabs.length });
+            chrome.tabs.move(tabs.map(tab => tab.id),
+              { windowId: nextWindow.id, index: nextWindow.tabs.length });
             chrome.tabs.update(activeTab.id, { active: true });
             chrome.windows.update(nextWindow.id, { focused: true });
           });
         });
       });
     });
+  }
+
+  function getNextNormalWindow(windows, currentWindow) {
+    let currentWindowIndex = windows.map(window => window.id).indexOf(currentWindow.id);
+    let nextWindowIndex = currentWindowIndex;
+    let nextWindow = null;
+
+    do {
+      nextWindowIndex++;
+      if (nextWindowIndex >= windows.length) nextWindowIndex = 0;
+      nextWindow = windows[nextWindowIndex];
+    } while (nextWindow.type != "normal" && nextWindowIndex != currentWindowIndex);
+
+    return nextWindow;
   }
 
   // Toggles the pinned state of the active tab, and makes all the 

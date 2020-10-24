@@ -27,6 +27,10 @@ chrome.commands.onCommand.addListener(function(command) {
       undockTabsToNewWindow();
       break;
 
+    case 'undock-tab-to-popup-window':
+      undockTabToPopupWindow();
+      break;
+
     case 'move-tabs-between-windows':
       moveTabsBetweenWindows();
       break;
@@ -44,10 +48,7 @@ chrome.commands.onCommand.addListener(function(command) {
 
     processHighlightedTabs(function(tabs) {
       let properties = {tabId: tabs[0].id};
-      if (tabs.length == 1) {
-        // Remove the URL and tab bar when popping out a single tab.
-        properties.type = 'popup';
-      }
+
       chrome.windows.create(properties, function(window) {
         tabs.shift();
         if (tabs.length > 0) {
@@ -56,6 +57,15 @@ chrome.commands.onCommand.addListener(function(command) {
           chrome.tabs.update(activeTab.id, {active: true});
         }
       });
+    });
+  }
+
+  function undockTabToPopupWindow() {
+    // Call 'update' with an empty properties object to get access to the
+    // current tab (given to us in the callback function).
+    chrome.tabs.update({}, function(tab) {
+      let properties = {tabId: tab.id, type: 'popup'};
+      chrome.windows.create(properties, function(window) {});
     });
   }
 

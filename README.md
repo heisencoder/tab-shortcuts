@@ -7,8 +7,7 @@ This extension supports adding keybindings for the following actions:
 *   `move-tabs-left`: Moves all selected tabs one position to the left.
 *   `move-tabs-right`: Moves all selected tabs one position to the right.
 *   `undock-tabs-to-new-window`: Moves all selected tabs into a new window.
-    If there is only one selected tab, then the new window will be a pop-up
-    type without a tab bar or URL bar.
+*   `undock-tab-to-popup-window`: Moves the active tab into a new pop-up window.
 *   `move-tabs-between-windows`: Moves all the selected tabs into the next window,
     as defined by the order that the windows were created.  This skips over
     other pop-up type windows. If the active tab is itself in a pop-up type
@@ -16,6 +15,8 @@ This extension supports adding keybindings for the following actions:
 *   `toggle-pinned`: Toggles the pinned state of all the selected windows.
 
 You can select multiple tabs by holding down Shift or Ctrl while clicking on tabs.
+
+A pop-up window does not have the tab or URL bars, and can only hold one tab.
 
 To update the keybindings, visit the chrome://extensions/shortcuts page and look for the tab-shortcuts extension.
 

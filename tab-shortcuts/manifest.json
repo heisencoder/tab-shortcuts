@@ -22,7 +22,15 @@
     },
 
     "undock-tabs-to-new-window": {
-      "description": "Undock tabs to a new window",
+      "description": "Undock tabs to a new normal window",
+      "suggested_key": {
+        "default": "Ctrl+Shift+Up",
+        "mac": "MacCtrl+Shift+Up"
+      }
+    },
+
+    "undock-tab-to-popup-window": {
+      "description": "Undock tab to a new popup window",
       "suggested_key": {
         "default": "Ctrl+Shift+Up",
         "mac": "MacCtrl+Shift+Up"

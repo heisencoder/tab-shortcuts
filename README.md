@@ -20,6 +20,25 @@ A pop-up window does not have the tab or URL bars, and can only hold one tab.
 
 To update the keybindings, visit the chrome://extensions/shortcuts page and look for the tab-shortcuts extension.
 
+## TODO list
+
+*   Prevent moving tabs to windows that are off-screen (e.g., in a different workspace).
+*   Move tabs to next window, but keep focus on current window.
+*   Support selecting tabs to left or right.
+*   Move to left/right tab, but keep existing selection.
+*   New tab to the right.
+*   Support Tab Group operations:
+    *   Move tab into new Tab Group.
+    *   Move Tab Group left/right/new window.
+    *   Move Tab Group to beginning/end of window.
+    *   Move tab into next/previous Tab Group.
+    *   Remove tab from group.
+    *   Select next/previous Tab Group.
+
+For consideration:
+
+*   Keep track of tab position before move and allow for undo motion.
+
 ## Acknowledgements
 
 Thanks to Kenneth LU for making the

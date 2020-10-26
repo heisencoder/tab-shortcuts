@@ -47,13 +47,17 @@ chrome.commands.onCommand.addListener(function(command) {
     });
 
     processHighlightedTabs(function(tabs) {
-      let properties = {tabId: tabs[0].id};
+      let firstTab = tabs[0];
+      let properties = {tabId: firstTab.id};
 
       chrome.windows.create(properties, function(window) {
+        chrome.tabs.update(firstTab.id, {pinned: firstTab.pinned});
         tabs.shift();
         if (tabs.length > 0) {
           chrome.tabs.move(
               tabs.map(tab => tab.id), {windowId: window.id, index: 1});
+          // Re-pin previously pinned tabs.
+          tabs.forEach(tab => chrome.tabs.update(tab.id, {pinned: tab.pinned}));
           chrome.tabs.update(activeTab.id, {active: true});
         }
       });
@@ -76,7 +80,7 @@ chrome.commands.onCommand.addListener(function(command) {
 
         if (nextWindow.id == currentWindow.id) {
           undockTabsToNewWindow();
-	  return;
+          return;
         }
 
         processHighlightedTabs(function(tabs) {
@@ -86,6 +90,9 @@ chrome.commands.onCommand.addListener(function(command) {
                 chrome.tabs.move(
                     tabs.map(tab => tab.id),
                     {windowId: nextWindow.id, index: nextWindow.tabs.length});
+                // Re-pin previously pinned tabs.
+                tabs.forEach(
+                    tab => chrome.tabs.update(tab.id, {pinned: tab.pinned}));
                 chrome.tabs.update(activeTab.id, {active: true});
                 chrome.windows.update(nextWindow.id, {focused: true});
               });

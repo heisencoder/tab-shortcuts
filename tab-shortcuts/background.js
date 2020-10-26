@@ -75,7 +75,8 @@ chrome.commands.onCommand.addListener(function(command) {
         let nextWindow = getNextNormalWindow(windows, currentWindow);
 
         if (nextWindow.id == currentWindow.id) {
-          return;
+          undockTabsToNewWindow();
+	  return;
         }
 
         processHighlightedTabs(function(tabs) {

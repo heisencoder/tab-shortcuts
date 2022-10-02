@@ -1,7 +1,7 @@
 # tab-shortcuts
 Chrome extension that adds keyboard shortcuts for moving around tabs.
 
-## Features 
+## Features
 This extension supports adding keybindings for the following actions:
 
 *   `move-tabs-left`: Moves all selected tabs one position to the left.
@@ -38,6 +38,19 @@ To update the keybindings, visit the chrome://extensions/shortcuts page and look
 For consideration:
 
 *   Keep track of tab position before move and allow for undo motion.
+
+## Developing
+
+The source code is in the `tab-shortcuts` subdirectory, including the manifest
+and javascript files.  To make a release, run `bash make-release.sh` in the
+top-level directory.  This will put a new zip file into a `releases`
+subdirectory, including the version extracted from the manifest.
+
+To update the version number, edit the `version` field in `manifest.json`.
+This is required before uploading a new version to the Chrome Web Store.
+
+Note that `make-release.sh` requires that the `jq` command be installed (which
+is used for parsing the JSON-based manifest file).
 
 ## Acknowledgements
 

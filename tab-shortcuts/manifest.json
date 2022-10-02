@@ -1,15 +1,14 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "Tab Shortcuts - Rearrange Chrome Tabs",
   "short_name": "Tab Shortcuts",
   "description": "Add keyboard shortcuts for moving tabs between windows",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Matthew V. Ball",
 
   "background": {
-    "scripts": ["background.js"],
-    "persistent": true
+    "service_worker": "background.js"
   },
 
   "commands": {
@@ -53,5 +52,4 @@
       }
     }
   }
-
 }
